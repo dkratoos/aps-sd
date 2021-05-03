@@ -1,7 +1,7 @@
 #include <WinSock2.h>
 #include <string>
 
-#define TAMANHO_LISTA 30
+#define TAMANHO_LISTA 3
 #define PORTA_SERVIDOR 2000
 
 enum TypeSocket {BlockingSocket, NonBlockingSocket};

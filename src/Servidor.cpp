@@ -11,10 +11,10 @@ unsigned __stdcall Answer(void* a) {
     if (payload.empty()) {
       break;
     } else {
-      if (payload.compare("listarCandidatos") == 1) {
-        server->ListarCandidatos();
-      } else if (payload.compare("listarVotos") == 1) {
+      if (payload.compare("listarVotos") == 1) {
         server->ListarVotos();
+      } else if (payload.compare("listarCandidatos") == 1) {
+        server->ListarCandidatos();
       } else if (payload.rfind("buscarCandidato", 0) == 0) {
         std::string token = payload.substr(payload.find(":") + 1);
         server->BuscarCandidato(stoi(token));

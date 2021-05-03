@@ -41,8 +41,7 @@ void listarVotosCandidatos() {
 int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "");
 
-	int operacao, voto;
-	bool votou;
+	int operacao;
 
 	cout << "\nInforme a operacao que deseja:\n1) Listar candidatos\n2) Sair\n\n";
 	cin >> operacao;

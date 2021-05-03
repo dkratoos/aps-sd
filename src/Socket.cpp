@@ -1,6 +1,7 @@
 #include "Socket.h"
 #include <iostream>
-#include <string>
+
+#define TAMANHO_LISTA 3
 
 using namespace std;
 
@@ -63,7 +64,7 @@ void SocketServer::ListarCandidatos() {
 
 void SocketServer::ListarVotos() {
 	for(int i = 0; i < TAMANHO_LISTA; i++){
-		string data = std::to_string(i + 1) + " - Candidato 1 -> " + candidatos[i].nome + " - " + std::to_string(candidatos[i].numero) + "|" + candidatos[i].sigla + " - " + std::to_string(candidatos[i].qtdVotos) + "Votos.";
+		string data = std::to_string(i + 1) + " - Candidato -> " + candidatos[i].nome + " - " + std::to_string(candidatos[i].numero) + "|" + candidatos[i].sigla + " - " + std::to_string(candidatos[i].qtdVotos) + " Votos.";
 
     this->SendLine(data);
 	}
