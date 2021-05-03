@@ -1,13 +1,13 @@
 #include "Socket.h"
 #include <iostream>
-#define TAMANHO_LISTA 30
+#include <string>
 
 using namespace std;
 
 int Socket::nofSockets_= 0;
 
 struct candidato {
-  int numero;
+  int numero = 0;
   int qtdVotos = 0;
   string sigla;
   string nome;
@@ -16,7 +16,7 @@ struct candidato {
 Socket* SocketServer::MockCandidatos () {
   candidatos[0].numero = 17;
 	candidatos[0].sigla = "PCDOB";
-	candidatos[0].nome = "Éneias";
+	candidatos[0].nome = "Eneias";
 
 	candidatos[1].numero = 13;
 	candidatos[1].sigla = "PT";
@@ -25,6 +25,48 @@ Socket* SocketServer::MockCandidatos () {
 	candidatos[2].numero = 22;
 	candidatos[2].sigla = "PSL";
 	candidatos[2].nome = "Laranja";
+}
+
+void SocketServer::ComputarVoto(int numero) {
+	for(int i = 0; i < TAMANHO_LISTA; i++){
+		if (candidatos[i].numero == numero) {
+      candidatos[i].qtdVotos += 1;
+      this->SendLine("votou");
+		}
+	}
+}
+
+void SocketServer::BuscarCandidato(int numero) {
+	candidato cand;
+	cand.nome = "";
+
+	for(int i = 0; i < TAMANHO_LISTA; i++){
+		if (candidatos[i].numero == numero) {
+			cand = candidatos[i];
+		}
+	}
+
+	if (cand.nome.compare("") == 0) {
+		this->SendLine("\nCandidato não existente, por favor informe outro número.\n");
+	} else {
+    this->SendLine("\nTem certeza que deseja votar no candidato: " + cand.nome + "|" + cand.sigla + "? S/N");
+  }
+}
+
+void SocketServer::ListarCandidatos() {
+	for(int i = 0; i < TAMANHO_LISTA; i++){
+		string data = std::to_string(i + 1) + " - Candidato -> " + candidatos[i].nome + " - " + std::to_string(candidatos[i].numero) + "|" + candidatos[i].sigla;
+
+    this->SendLine(data);
+	}
+}
+
+void SocketServer::ListarVotos() {
+	for(int i = 0; i < TAMANHO_LISTA; i++){
+		string data = std::to_string(i + 1) + " - Candidato 1 -> " + candidatos[i].nome + " - " + std::to_string(candidatos[i].numero) + "|" + candidatos[i].sigla + " - " + std::to_string(candidatos[i].qtdVotos) + "Votos.";
+
+    this->SendLine(data);
+	}
 }
 
 void Socket::Start() {

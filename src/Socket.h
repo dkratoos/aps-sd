@@ -1,6 +1,8 @@
 #include <WinSock2.h>
-
 #include <string>
+
+#define TAMANHO_LISTA 30
+#define PORTA_SERVIDOR 2000
 
 enum TypeSocket {BlockingSocket, NonBlockingSocket};
 
@@ -42,4 +44,8 @@ class SocketServer : public Socket {
 
     Socket* ValidarPorta();
     Socket* MockCandidatos();
+    void ComputarVoto(int numero);
+    void ListarCandidatos();
+    void BuscarCandidato(int numero);
+    void ListarVotos();
 };
